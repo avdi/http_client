@@ -47,8 +47,12 @@ describe HttpClient::NetHttpBackend do
         Net::HTTP.should_receive(:start).ordered
       end
 
-      it "should call listener.handle_open once the connection is started" do
+      it "should call listener.handle_resolved once the connection is started" do
         Net::HTTP.should_receive(:start).ordered
+        @listener.should_receive(:handle_resolved).ordered
+      end
+      it "should call listener.handle_open once the connection is started" do
+        @listener.should_receive(:handle_resolved).ordered
         @listener.should_receive(:handle_open).ordered
       end
     end

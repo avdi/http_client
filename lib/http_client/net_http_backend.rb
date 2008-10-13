@@ -6,7 +6,7 @@ module HttpClient
       end
     end
 
-    noop :handle_initiate, :handle_open, :handle_close
+    noop :handle_initiate, :handle_open, :handle_close, :handle_resolved
   end
 
   class NetHttpBackend
@@ -18,6 +18,7 @@ module HttpClient
       @listener   = options.fetch(:listener){NullListener.new}
       @listener.handle_initiate
       @connection = Net::HTTP.start(host, 80)
+      @listener.handle_resolved
       @listener.handle_open
     end
 
